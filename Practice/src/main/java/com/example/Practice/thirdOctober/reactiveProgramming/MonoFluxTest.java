@@ -5,6 +5,7 @@ import reactor.core.publisher.Mono;
 import org.junit.jupiter.api.*;
 import reactor.util.function.Tuple2;
 import reactor.util.function.Tuple3;
+import reactor.util.function.Tuples;
 
 import java.util.Arrays;
 
@@ -13,6 +14,7 @@ public class MonoFluxTest {
     @Test
     public void testMono(){
         Mono<String> stringMono = Mono.just("Piyush").log();
+
         stringMono.subscribe(System.out::println);
 
         Mono<String> mono = Mono.just("efoijfoie").log();
@@ -23,7 +25,9 @@ public class MonoFluxTest {
     @Test
     public void combineMono(){
         Mono<String> sm1 = Mono.just("Piyush");
+
         Mono<String> sm2 = Mono.just("Jogi");
+
         Mono<Integer> sm3 = Mono.just(12345);
 
         Mono.zip(sm1,sm2).subscribe(System.out::println);
@@ -62,7 +66,7 @@ public class MonoFluxTest {
     @Test
     public void testExceptionMono(){
         Mono<?> stringMono = Mono.just("Piyush")
-                .then(Mono.error(new RuntimeException("EXCEPTION OCCURED")))
+                .then(Mono.error(new RuntimeException("EXCEPTION OCCURRED")))
                 .log();
 
         stringMono.subscribe(System.out::println,e-> System.out.println(e.getMessage()));
@@ -75,6 +79,30 @@ public class MonoFluxTest {
                 .log();
 
         stringFlux.subscribe(System.out::println);
+    }
+
+    public static void main(String[] args) {
+        Flux<Integer> integerFlux = Flux.just(1, 2, 3, 4, 5);
+
+        Flux<Integer> handleMultiplier = integerFlux.handle((number, mf) -> mf.next(number * 2));
+
+        handleMultiplier.subscribe(System.out::println);
+        integerFlux.subscribe(System.out::println);
+
+
+        Mono<Tuple3<String, Integer, Boolean>> data = Mono.zip(Mono.just("piyush"),Mono.just(7),Mono.just(true));
+
+        Mono<Tuple3<String, Integer, Boolean>> data1 = Mono.just(Tuples.of("weew",7,true));
+
+        Mono<String> just = Mono.just("doijw");
+
+        Flux<String> just1 = Flux.just("wd", "ewwd");
+
+        data.subscribe(tuple -> {
+            String first = tuple.getT1();
+            Integer second = tuple.getT2();
+            Boolean third = tuple.getT3();
+        });
     }
 
 }
