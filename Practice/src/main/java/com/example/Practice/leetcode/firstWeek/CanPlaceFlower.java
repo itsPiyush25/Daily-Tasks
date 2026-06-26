@@ -2,7 +2,7 @@ package com.example.Practice.leetcode.firstWeek;
 
 public class CanPlaceFlower {
     public static void main(String[] args) {
-        System.out.println(canPlaceFlowers(new int[]{1,0,0,0,1},2));
+        System.out.println(canPlaceFlowers(new int[]{1,0,1,0,1},2));
         System.out.println(canPlaceFlowers(new int[]{1,0,1,0,1},3));
         System.out.println(canPlaceFlowers(new int[]{1,0,0,0,0},1));
     }
