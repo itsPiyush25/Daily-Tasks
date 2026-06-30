@@ -44,11 +44,11 @@ public class GcdOfStrings {
 
         return str1.substring(0,gcdLength);
     }
-
+    // Euclidean algorithm
     private static int gcd(int a, int b) {
         while (b!=0){
            int temp = b;
-           b = a%b;
+           b = a % b;
            a = temp;
         }
         return a;
